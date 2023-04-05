@@ -90,6 +90,7 @@
 (deffunction generateTiket (?strChar)
     (bind ?cnt 10)
     (while (> ?cnt 0)
+        (seed (random 0 1000000))
         (bind ?temp (random 65 90))
         (bind ?chr (format nil "%c" ?temp))
         (bind ?strChar (sym-cat ?strChar ?chr))
@@ -150,7 +151,6 @@
 )
 
 (defmessage-handler TIKET Cetak_Nomor_Tiket ()
-    (seed 2357)
     (if (eq ?self:NomorTiket "")
         then
             (bind ?temp (generateTiket ""))
@@ -165,7 +165,7 @@
 (definstances skenario1
 	(Motor1 of KENDARAAN
 		(Tipe MOTOR)
-		(PlatNomor "N1234AL")
+		(PlatNomor "N 1234 AL")
 	)
 	(Tiket1 of TIKET
 		(RecKendaraan Motor1)
@@ -174,15 +174,15 @@
 		(JamMasuk 13:00)
         (TiketKendaraan Tiket1)
     )
-    (Mobil1 of KENDARAAN
-        (Tipe MOBIL)
-        (PlatNomor "D 3790 BF")
+    (Motor2 of KENDARAAN
+        (Tipe MOTOR)
+        (PlatNomor "D 1234 AZ")
     )
-    (Tiket3 of TIKET
-        (RecKendaraan Mobil1)
+    (Tiket2 of TIKET
+        (RecKendaraan Motor2)
     )
     (Checkout1 of CHECKOUT
-        (JamMasuk 10:00)
+        (JamMasuk 16:00)
         (TiketKendaraan Tiket3)
     )
 )
